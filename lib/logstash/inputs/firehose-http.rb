@@ -457,7 +457,7 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
       response.status = 200
       response.body = {
         "requestId": request_id,
-        "timestamp" : timestamp
+        "timestamp": timestamp
       }.to_json
     rescue JSON::ParserError
       response.status = 400
