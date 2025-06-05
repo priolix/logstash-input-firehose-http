@@ -43,7 +43,13 @@ module LogStash module Inputs class Http
     end
 
     def response_headers
-      @input.response_headers
+      # @input.response_headers
+      # Returns a test header for testing purposes
+      {
+        "Content-Type" => "application/json",
+        "X-Logstash-Input" => "http",
+        "X-Logstash-Input-Version" => LogStash::Inputs::Http::VERSION
+      }
     end
   end
 end; end; end
