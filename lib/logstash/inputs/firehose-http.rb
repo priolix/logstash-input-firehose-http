@@ -449,7 +449,7 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
       body = request.body.read
       parsed_body = JSON.parse(body)
       request_id = "1607"
-      timestamp = (Time.now.to_f * 1000).to_i
+      timestamp = "12h30"
   
       # Process the event (e.g., queue it for Logstash pipeline)
       # ...
