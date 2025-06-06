@@ -122,8 +122,8 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   # specify a custom set of response headers
   config :response_headers, :validate => :hash, :default => { 'Content-Type' => 'text/plain' }
 
-  # specify a custom body for the response
-  config :response_body, :validate => :string, :default => "Logstash HTTP Input"
+  # Send this as the body to each HTTP POST. A JSON example: `'{"ok": true}'`.
+  config :response_body, :default => "ok"
 
   # target field for the client host of the http request
   config :remote_host_target_field, :validate => :string
@@ -330,7 +330,7 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   def create_http_server(message_handler)
     org.logstash.plugins.inputs.http.NettyHttpServer.new(
       @id, @host, @port, message_handler, build_ssl_params, @threads,
-      @max_pending_requests, @max_content_length, @response_code)
+      @max_pending_requests, @max_content_length, @response_code, @response_body)
   end
 
   def build_ssl_params
