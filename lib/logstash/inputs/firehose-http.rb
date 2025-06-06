@@ -122,6 +122,9 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   # specify a custom set of response headers
   config :response_headers, :validate => :hash, :default => { 'Content-Type' => 'text/plain' }
 
+  # specify a custom body for the response
+  config :response_body, :validate => :string, :default => "Logstash HTTP Input"
+
   # target field for the client host of the http request
   config :remote_host_target_field, :validate => :string
 
