@@ -44,11 +44,23 @@ module LogStash module Inputs class Http
 
     def response_headers
       # @input.response_headers
+      # what's inside @input.response_headers is not used in the Java code
+      # so we can just return a static response header for testing purposes
       # Returns a test header for testing purposes
       {
         "Content-Type" => "application/json",
         "X-Logstash-Input" => "http"
       }
     end
+
+    def response_body
+      {
+        "status" => "success",
+        "data" => {
+          "message" => "This is a test response body"
+        }
+      }.to_json
+    end
+    
   end
 end; end; end
