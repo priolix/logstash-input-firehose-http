@@ -29,7 +29,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
     private final IMessageHandler messageHandler;
     private final ThreadPoolExecutor executorGroup;
     private final HttpResponseStatus responseStatus;
-    private final String responseBody;
+    private String responseBody;
 
     public HttpServerHandler(IMessageHandler messageHandler, ThreadPoolExecutor executorGroup,
                              HttpResponseStatus responseStatus, String responseBody) {
