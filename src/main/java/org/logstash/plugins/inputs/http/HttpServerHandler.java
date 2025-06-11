@@ -13,6 +13,9 @@ import io.netty.handler.codec.http.HttpVersion;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static io.netty.buffer.Unpooled.copiedBuffer;
 
 /**
