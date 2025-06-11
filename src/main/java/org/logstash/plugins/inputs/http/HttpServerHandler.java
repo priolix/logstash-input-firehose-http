@@ -42,7 +42,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         final String remoteAddress = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress().getHostAddress();
         msg.retain();
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
-        logger.debug("Received message from {}", remoteAddress);
+        // Print all ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody) 
+        logger.debug("Processing message from {} with message {}", remoteAddress, msg);
         executorGroup.execute(messageProcessor);
     }
 
