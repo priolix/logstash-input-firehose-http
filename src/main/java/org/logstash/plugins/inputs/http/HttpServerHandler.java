@@ -22,6 +22,7 @@ import static io.netty.buffer.Unpooled.copiedBuffer;
  * Created by joaoduarte on 11/10/2017.
  */
 public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
+    private final static Logger logger = LogManager.getLogger(HttpServerHandler.class);
 
     private final IMessageHandler messageHandler;
     private final ThreadPoolExecutor executorGroup;
