@@ -43,7 +43,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         msg.retain();
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
         // Print all ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody) 
-        logger.debug("Processing message from {} with message {}", remoteAddress, msg);
+        logger.debug("Processing message from {} with message {}", remoteAddress, msg.content());
+        logger.debug("FullHttpRequest: {}", msg);
         logger.debug("ctx: {}", ctx);
         logger.debug("MessageHandler: {}", messageHandler);
         logger.debug("Response status: {}", responseStatus);
