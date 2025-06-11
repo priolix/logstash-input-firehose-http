@@ -38,6 +38,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         final String remoteAddress = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress().getHostAddress();
         msg.retain();
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
+        // Writing the parameters in a file /tmp/logstash-input-firehose-http.log
+        System.out.println("Received message from " + remoteAddress + ": " + msg);
         executorGroup.execute(messageProcessor);
     }
 
