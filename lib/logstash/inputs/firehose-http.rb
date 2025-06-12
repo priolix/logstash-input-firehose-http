@@ -2,7 +2,7 @@
 require "logstash/inputs/base"
 require "logstash/namespace"
 require "stud/interval"
-require "logstash-input-firehose_http_jars"
+require "logstash-input-http_jars"
 require "logstash/plugin_mixins/ecs_compatibility_support"
 require "logstash/plugin_mixins/normalize_config_support"
 require "json"
@@ -36,7 +36,7 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   require "logstash/inputs/http/tls"
 
   java_import "io.netty.handler.codec.http.HttpUtil"
-  java_import 'org.logstash.plugins.inputs.firehose_http.util.SslSimpleBuilder'
+  java_import 'org.logstash.plugins.inputs.http.util.SslSimpleBuilder'
 
   config_name "firehose-http"
 
