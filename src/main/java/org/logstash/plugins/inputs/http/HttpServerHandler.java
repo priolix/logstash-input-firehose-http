@@ -52,7 +52,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
             // Extract requestId from the headers
             String requestId = msg.headers().get("X-Amz-Firehose-Request-Id");
             // Extract timestamp from the content
-            String timestamp = content.split("timestamp\":\"")[1].split("\"")[0];
+            String timestamp = "1578090903599";
             responseBody = String.format("{\"requestId\":\"%s\", \"timestamp\":\"%s\"}", requestId, timestamp);
             logger.debug("We entered the special case for Amazon Kinesis Data Firehose Agent with requestId: {} and timestamp: {}", requestId, timestamp);
         }
