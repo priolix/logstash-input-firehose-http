@@ -52,6 +52,8 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
             String requestId = content.split("requestId\":\"")[1].split("\"")[0];
             String timestamp = content.split("timestamp\":\"")[1].split("\"")[0];
             responseBody = String.format("{\"requestId\":\"%s\", \"timestamp\":\"%s\"}", requestId, timestamp);
+            // Set the content type to application/json
+            msg.headers().set(HttpHeaderNames.CONTENT_TYPE, "application/json");
         }
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
         // Print all ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody) 

@@ -2,7 +2,7 @@
 require "logstash/inputs/base"
 require "logstash/namespace"
 require "stud/interval"
-require "logstash-input-http_jars"
+require "logstash-input-firehose_http_jars"
 require "logstash/plugin_mixins/ecs_compatibility_support"
 require "logstash/plugin_mixins/normalize_config_support"
 require "json"
@@ -36,7 +36,7 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   require "logstash/inputs/http/tls"
 
   java_import "io.netty.handler.codec.http.HttpUtil"
-  java_import 'org.logstash.plugins.inputs.http.util.SslSimpleBuilder'
+  java_import 'org.logstash.plugins.inputs.firehose_http.util.SslSimpleBuilder'
 
   config_name "firehose-http"
 
@@ -120,10 +120,10 @@ class LogStash::Inputs::Http < LogStash::Inputs::Base
   config :additional_codecs, :validate => :hash, :default => { "application/json" => "json" }
 
   # specify a custom set of response headers
-  config :response_headers, :validate => :hash, :default => { 'Content-Type' => 'text/plain' }
+  config :response_headers, :validate => :hash, :default => { 'content-type' => 'text/plain' }
 
   # Send this as the body to each HTTP POST. A JSON example: `'{"ok": true}'`.
-  config :response_body, :default => "ok"
+  config :response_body, :default => "test"
 
   # target field for the client host of the http request
   config :remote_host_target_field, :validate => :string
