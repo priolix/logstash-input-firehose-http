@@ -44,16 +44,16 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         final String remoteAddress = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress().getHostAddress();
         msg.retain();
         String content = msg.content().toString(CharsetUtil.UTF_8);
-        // If the user agent in the content is User-Agent: Amazon Kinesis Data Firehose Agent/1.0 and Content-Type: application/json
+        // If the user agent in the content is User-Agent: Amazon Kinesis Data Firehose Agent/1.0 and Content-Type: application/json and a X-Amz-Firehose-Request-Id header is present,
         // then we need to set the responseBody with the requestId and timestamp that are in the content
         if (msg.headers().get(HttpHeaderNames.USER_AGENT).equals("Amazon Kinesis Data Firehose Agent/1.0") &&
-            msg.headers().get(HttpHeaderNames.CONTENT_TYPE).equals("application/json")) {
-            // Extract requestId and timestamp from the content
-            String requestId = content.split("requestId\":\"")[1].split("\"")[0];
+            msg.headers().get(HttpHeaderNames.CONTENT_TYPE).equals("application/json") &&
+            msg.headers().contains("X-Amz-Firehose-Request-Id")) {
+            // Extract requestId from the headers
+            String requestId = msg.headers().get("X-Amz-Firehose-Request-Id");
+            // Extract timestamp from the content
             String timestamp = content.split("timestamp\":\"")[1].split("\"")[0];
             responseBody = String.format("{\"requestId\":\"%s\", \"timestamp\":\"%s\"}", requestId, timestamp);
-            // Set the content type to application/json
-            msg.headers().set(HttpHeaderNames.CONTENT_TYPE, "application/json");
         }
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
         // Print all ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody) 
