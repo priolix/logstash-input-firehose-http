@@ -54,6 +54,11 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
             // Extract timestamp from the content
             String timestamp = content.split("timestamp\":\"")[1].split("\"")[0];
             responseBody = String.format("{\"requestId\":\"%s\", \"timestamp\":\"%s\"}", requestId, timestamp);
+            logger.debug("We entered the special case for Amazon Kinesis Data Firehose Agent with requestId: {} and timestamp: {}", requestId, timestamp);
+        }
+        else {
+            // If the user agent is not the one we expect, we just use the responseBody as it is
+            logger.debug("User-Agent is not Amazon Kinesis Data Firehose Agent/1.0, using default responseBody: {}", responseBody);
         }
         final MessageProcessor messageProcessor = new MessageProcessor(ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody);
         // Print all ctx, msg, remoteAddress, messageHandler, responseStatus, responseBody) 
